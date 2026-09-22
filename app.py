@@ -14,7 +14,7 @@ import extra_streamlit_components as stx
 
 
 # ============================================================
-# StoreFlow — Streamlit demo
+# StoreFlow â€” Streamlit demo
 # ============================================================
 # Features:
 # - Registration/login with email OR phone
@@ -42,13 +42,13 @@ UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
 
 BUSINESS_TYPES = [
-    "ონლაინ მაღაზია",
-    "ოჯახის მაღაზია",
-    "შიდა გაყიდვები",
-    "Instagram / Facebook მაღაზია",
-    "საბითუმო გაყიდვები",
-    "სერვისი / მომსახურება",
-    "სხვა",
+    "áƒáƒœáƒšáƒáƒ˜áƒœ áƒ›áƒáƒ¦áƒáƒ–áƒ˜áƒ",
+    "áƒáƒ¯áƒáƒ®áƒ˜áƒ¡ áƒ›áƒáƒ¦áƒáƒ–áƒ˜áƒ",
+    "áƒ¨áƒ˜áƒ“áƒ áƒ’áƒáƒ§áƒ˜áƒ“áƒ•áƒ”áƒ‘áƒ˜",
+    "Instagram / Facebook áƒ›áƒáƒ¦áƒáƒ–áƒ˜áƒ",
+    "áƒ¡áƒáƒ‘áƒ˜áƒ—áƒ£áƒ›áƒ áƒ’áƒáƒ§áƒ˜áƒ“áƒ•áƒ”áƒ‘áƒ˜",
+    "áƒ¡áƒ”áƒ áƒ•áƒ˜áƒ¡áƒ˜ / áƒ›áƒáƒ›áƒ¡áƒáƒ®áƒ£áƒ áƒ”áƒ‘áƒ",
+    "áƒ¡áƒ®áƒ•áƒ",
 ]
 
 
@@ -57,7 +57,7 @@ BUSINESS_TYPES = [
 # -----------------------------
 st.set_page_config(
     page_title="StoreFlow",
-    page_icon="📊",
+    page_icon="ðŸ“Š",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -107,7 +107,7 @@ def init_db():
             product TEXT NOT NULL,
             photo_path TEXT,
             transport_fee REAL NOT NULL DEFAULT 0,
-            stage TEXT NOT NULL DEFAULT 'გაფორმებული',
+            stage TEXT NOT NULL DEFAULT 'áƒ’áƒáƒ¤áƒáƒ áƒ›áƒ”áƒ‘áƒ£áƒšáƒ˜',
             transport_paid INTEGER NOT NULL DEFAULT 0,
             created_at TEXT NOT NULL,
             arrived_at TEXT,
@@ -264,7 +264,7 @@ def save_uploaded_file(uploaded, prefix: str) -> str | None:
 
 
 def money(v):
-    return f"₾{float(v):,.2f}"
+    return f"â‚¾{float(v):,.2f}"
 
 
 def add_notification(user_id, title, body, kind="info"):
@@ -311,7 +311,7 @@ def create_due_reminders(user_id):
         WHERE user_id = ?
           AND datetime(created_at) <= ?
           AND reminder_created = 0
-          AND stage != 'ჩაბარებული'
+          AND stage != 'áƒ©áƒáƒ‘áƒáƒ áƒ”áƒ‘áƒ£áƒšáƒ˜'
         """,
         (user_id, cutoff.isoformat()),
     ).fetchall()
@@ -319,8 +319,8 @@ def create_due_reminders(user_id):
     for order in rows:
         add_notification(
             user_id,
-            "შეკვეთის გადამოწმება",
-            f"შეკვეთა #{order['id']} უკვე 10 დღისაა. გადაამოწმე, რა ეტაპზეა ამანათი.",
+            "áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ˜áƒ¡ áƒ’áƒáƒ“áƒáƒ›áƒáƒ¬áƒ›áƒ”áƒ‘áƒ",
+            f"áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ #{order['id']} áƒ£áƒ™áƒ•áƒ” 10 áƒ“áƒ¦áƒ˜áƒ¡áƒáƒ. áƒ’áƒáƒ“áƒáƒáƒ›áƒáƒ¬áƒ›áƒ”, áƒ áƒ áƒ”áƒ¢áƒáƒžáƒ–áƒ”áƒ áƒáƒ›áƒáƒœáƒáƒ—áƒ˜.",
             "reminder",
         )
         conn.execute(
@@ -340,119 +340,64 @@ st.markdown(
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@400;500;600;700;800&display=swap');
 
-html, body, [class*="css"] {
-    font-family: 'Noto Sans Georgian', sans-serif;
+:root{
+ --bg:#070a12; --panel:#0d1220; --panel2:#101727; --line:#202a42;
+ --text:#f7f7ff; --muted:#8d96ad; --purple:#7b4dff; --pink:#ff3f88;
+ --green:#16e3a0; --orange:#ff9b4a;
 }
+html,body,[class*="css"]{font-family:'Noto Sans Georgian',sans-serif!important}
+.stApp{background:
+ radial-gradient(circle at 82% 3%,rgba(124,77,255,.15),transparent 28%),
+ radial-gradient(circle at 45% 38%,rgba(255,63,136,.035),transparent 30%),#070a12;
+ color:var(--text)}
+.block-container{max-width:1480px;padding:22px 34px 45px}
+section[data-testid="stSidebar"]{background:linear-gradient(180deg,#090d16,#080b12);border-right:1px solid #182137}
+section[data-testid="stSidebar"]>div{padding:20px 14px}
+section[data-testid="stSidebar"] .stButton>button{background:transparent!important;border:1px solid transparent!important;color:#9da6bb!important;text-align:left!important;justify-content:flex-start!important;border-radius:11px!important;box-shadow:none!important;font-size:14px!important;padding:10px 12px!important}
+section[data-testid="stSidebar"] .stButton>button:hover{background:#151a2b!important;color:#fff!important}
+section[data-testid="stSidebar"] .stButton>button:focus{border-color:#6242d9!important}
+.stButton>button{border:1px solid rgba(255,255,255,.07)!important;border-radius:12px!important;background:linear-gradient(135deg,#7848ff,#a84eff)!important;color:#fff!important;font-weight:700!important;min-height:42px;box-shadow:0 8px 25px rgba(110,66,255,.16);transition:.18s}
+.stButton>button:hover{transform:translateY(-1px);filter:brightness(1.07)}
+.stButton>button[kind="secondary"]{background:#121827!important;border-color:#2a3652!important}
+.stButton>button[kind="secondary"]:hover{background:#191f32!important}
+.stTextInput input,.stTextArea textarea,.stNumberInput input{background:#0c1220!important;color:#fff!important;border:1px solid #26314b!important;border-radius:12px!important}
+.stTextInput input:focus,.stTextArea textarea:focus,.stNumberInput input:focus{border-color:#704cff!important;box-shadow:0 0 0 1px #704cff!important}
+[data-baseweb="select"]>div{background:#0c1220!important;color:#fff!important;border:1px solid #26314b!important;border-radius:12px!important}
+.stFileUploader section{background:#0c1220!important;border:1px dashed #33405f!important;border-radius:14px!important}
+.stApp p,.stApp label,.stApp [data-testid="stMarkdownContainer"]{color:#f0f2fa}
+[data-testid="stWidgetLabel"] p{color:#cdd3e2!important;font-weight:600}
+.stTabs [data-baseweb="tab-list"]{background:#0c1220;border:1px solid #202b43;border-radius:13px;padding:4px;gap:3px}
+.stTabs [data-baseweb="tab"]{color:#909ab0!important;border-radius:9px;padding:8px 14px}
+.stTabs [aria-selected="true"]{color:#fff!important;background:linear-gradient(135deg,#7045ef,#a24af2)!important}
+[data-testid="stSegmentedControl"]{background:#0c1220!important;border:1px solid #222e48!important;border-radius:12px!important;padding:4px!important}
+[data-testid="stSegmentedControl"] button{color:#98a1b5!important;border-radius:9px!important}
+[data-testid="stSegmentedControl"] button[aria-checked="true"]{background:#7547ef!important;color:#fff!important}
 
-.stApp {
-    background:
-        radial-gradient(circle at 85% 0%, rgba(143, 76, 255, .13), transparent 30%),
-        radial-gradient(circle at 20% 10%, rgba(255, 69, 132, .07), transparent 24%),
-        #070910;
-    color: #f4f3fb;
-}
-
-section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #0b0e17 0%, #090b12 100%);
-    border-right: 1px solid rgba(255,255,255,.06);
-}
-
-.block-container {
-    padding-top: 1.6rem;
-    max-width: 1450px;
-}
-
-div[data-testid="stMetric"] {
-    background: linear-gradient(145deg, rgba(25,28,40,.96), rgba(13,16,25,.96));
-    border: 1px solid rgba(255,255,255,.07);
-    padding: 18px;
-    border-radius: 22px;
-    box-shadow: 0 18px 60px rgba(0,0,0,.18);
-}
-
-div[data-testid="stMetricLabel"] {
-    color: #a9a8b8;
-}
-
-div[data-testid="stMetricValue"] {
-    color: #fff;
-}
-
-.stButton > button {
-    border: 1px solid rgba(255,255,255,.08);
-    border-radius: 13px;
-    background: linear-gradient(135deg, #8b5cf6, #c04cf2);
-    color: white;
-    font-weight: 700;
-    padding: .55rem 1rem;
-    transition: .2s ease;
-}
-
-.stButton > button:hover {
-    transform: translateY(-1px);
-    filter: brightness(1.08);
-}
-
-input, textarea, [data-baseweb="select"] > div {
-    border-radius: 12px !important;
-}
-
-.sf-card {
-    background: linear-gradient(145deg, rgba(20,23,34,.96), rgba(11,14,23,.96));
-    border: 1px solid rgba(255,255,255,.07);
-    border-radius: 22px;
-    padding: 22px;
-    margin-bottom: 18px;
-    box-shadow: 0 18px 60px rgba(0,0,0,.16);
-}
-
-.sf-logo {
-    font-size: 25px;
-    font-weight: 800;
-    letter-spacing: -.7px;
-    margin-bottom: 22px;
-}
-
-.sf-gradient {
-    background: linear-gradient(90deg, #ff4d91, #9b5cff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.small-muted {
-    color: #9293a3;
-    font-size: 13px;
-}
-
-.order-card {
-    background: #10131d;
-    border: 1px solid rgba(255,255,255,.07);
-    border-radius: 18px;
-    padding: 16px;
-    margin-bottom: 12px;
-}
-
-.badge {
-    display:inline-block;
-    padding:5px 10px;
-    border-radius:999px;
-    background:rgba(139,92,246,.14);
-    color:#c7b5ff;
-    font-size:12px;
-}
-
-div[data-testid="stFileUploader"] {
-    border-radius: 16px;
-}
-
-hr {
-    border-color: rgba(255,255,255,.07);
-}
-
-.auth-wrap {
-    max-width: 540px;
-    margin: 50px auto;
-}
+.sf-topbar{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.sf-search{flex:1;background:#0c1220;border:1px solid #202b43;border-radius:12px;padding:11px 15px;color:#707b93;font-size:13px}
+.sf-top-icon{width:42px;height:42px;border-radius:12px;background:#0c1220;border:1px solid #202b43;display:flex;align-items:center;justify-content:center;font-size:18px}
+.sf-user{display:flex;align-items:center;gap:9px;background:#0c1220;border:1px solid #202b43;border-radius:12px;padding:6px 10px;color:#fff;font-size:13px}
+.sf-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#7b4dff,#ff3f88);display:flex;align-items:center;justify-content:center;font-weight:800}
+.sf-hero{background:linear-gradient(110deg,rgba(15,20,34,.98),rgba(12,17,30,.9));border:1px solid #202b43;border-radius:20px;padding:23px 25px;margin-bottom:16px;position:relative;overflow:hidden}
+.sf-hero:after{content:'';position:absolute;right:-80px;top:-100px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(130,72,255,.25),transparent 67%);pointer-events:none}
+.sf-hero h1{font-size:27px!important;margin:0 0 5px!important;color:#fff!important;letter-spacing:-.7px}
+.sf-hero p{color:#8f99af!important;margin:0!important;font-size:13px}
+.sf-card{background:linear-gradient(145deg,rgba(14,19,32,.98),rgba(9,13,23,.98));border:1px solid #202b43;border-radius:18px;padding:20px;box-shadow:0 16px 45px rgba(0,0,0,.17);margin-bottom:16px}
+.sf-card h3,.sf-card h2{color:#fff!important;margin-top:0}
+.sf-metric{position:relative;min-height:128px;padding:18px 20px;border-radius:18px;border:1px solid #202b43;background:#0d1422;overflow:hidden;margin-bottom:15px}
+.sf-metric:after{content:'';position:absolute;right:-70px;top:-75px;width:180px;height:180px;border-radius:50%;filter:blur(5px);opacity:.18}
+.sf-metric.income{border-color:rgba(0,226,160,.36)} .sf-metric.income:after{background:#00e2a0}
+.sf-metric.expense{border-color:rgba(255,63,136,.34)} .sf-metric.expense:after{background:#ff3f88}
+.sf-metric.profit{border-color:rgba(124,77,255,.4)} .sf-metric.profit:after{background:#7c4dff}
+.metric-icon{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:800;margin-bottom:10px}
+.income .metric-icon{background:rgba(0,226,160,.13);color:#00e2a0}.expense .metric-icon{background:rgba(255,63,136,.13);color:#ff5d98}.profit .metric-icon{background:rgba(124,77,255,.16);color:#a981ff}
+.metric-label{color:#9ca5b8;font-size:12px;margin-bottom:2px}.metric-value{color:#fff;font-size:28px;font-weight:800;letter-spacing:-.5px}.metric-foot{font-size:10px;margin-top:8px}.positive{color:#18dfa1}.negative{color:#ff5c95}
+.chart-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:8px}.chart-head h3{margin:0;color:#fff!important;font-size:17px}.chart-head p{margin:3px 0 0;color:#7f899f!important;font-size:11px}
+.sf-feature{background:#0d1422;border:1px solid #202b43;border-radius:16px;padding:18px;min-height:120px}.sf-feature h4{color:#fff!important;margin:8px 0 4px;font-size:14px}.sf-feature p{color:#858fa5!important;font-size:11px;line-height:1.55;margin:0}.feature-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(124,77,255,.16);color:#a981ff;font-size:17px}
+.order-card{background:#0d1422;border:1px solid #202b43;border-radius:14px;padding:15px;margin-bottom:10px}.small-muted{color:#858fa5!important;font-size:12px}.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:rgba(124,77,255,.13);border:1px solid rgba(124,77,255,.22);color:#bda9ff!important;font-size:11px}
+.profile-danger{border:1px solid rgba(255,63,136,.45);background:rgba(255,63,136,.06);border-radius:14px;padding:14px;margin-bottom:10px}.profile-danger h4{color:#ff6a9d!important;margin:0 0 5px}.auth-wrap{max-width:540px;margin:45px auto}.auth-wrap .sf-card{padding:28px}
+hr{border-color:#1d263a!important}
+@media(max-width:900px){.block-container{padding:14px 14px 35px}.sf-topbar{gap:8px}.sf-user span{display:none}.sf-hero h1{font-size:22px!important}.metric-value{font-size:24px}}
 </style>
 """,
     unsafe_allow_html=True,
@@ -471,44 +416,44 @@ def registration_page():
             <div class="sf-logo">
                 <span class="sf-gradient">StoreFlow</span>
             </div>
-            <h1>შექმენი შენი სამუშაო სივრცე</h1>
-            <p class="small-muted">მართე ონლაინ-მაღაზია ერთი მარტივი პანელიდან.</p>
+            <h1>áƒ¨áƒ”áƒ¥áƒ›áƒ”áƒœáƒ˜ áƒ¨áƒ”áƒœáƒ˜ áƒ¡áƒáƒ›áƒ£áƒ¨áƒáƒ áƒ¡áƒ˜áƒ•áƒ áƒªáƒ”</h1>
+            <p class="small-muted">áƒ›áƒáƒ áƒ—áƒ” áƒáƒœáƒšáƒáƒ˜áƒœ-áƒ›áƒáƒ¦áƒáƒ–áƒ˜áƒ áƒ”áƒ áƒ—áƒ˜ áƒ›áƒáƒ áƒ¢áƒ˜áƒ•áƒ˜ áƒžáƒáƒœáƒ”áƒšáƒ˜áƒ“áƒáƒœ.</p>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
     with st.form("register_form"):
-        email = st.text_input("ელფოსტა")
-        phone = st.text_input("საკონტაქტო ნომერი")
-        business_name = st.text_input("ბიზნესის დასახელება")
-        business_type = st.selectbox("რა სახის ბიზნესია?", BUSINESS_TYPES)
-        password = st.text_input("პაროლი", type="password")
-        password2 = st.text_input("გაიმეორე პაროლი", type="password")
+        email = st.text_input("áƒ”áƒšáƒ¤áƒáƒ¡áƒ¢áƒ")
+        phone = st.text_input("áƒ¡áƒáƒ™áƒáƒœáƒ¢áƒáƒ¥áƒ¢áƒ áƒœáƒáƒ›áƒ”áƒ áƒ˜")
+        business_name = st.text_input("áƒ‘áƒ˜áƒ–áƒœáƒ”áƒ¡áƒ˜áƒ¡ áƒ“áƒáƒ¡áƒáƒ®áƒ”áƒšáƒ”áƒ‘áƒ")
+        business_type = st.selectbox("áƒ áƒ áƒ¡áƒáƒ®áƒ˜áƒ¡ áƒ‘áƒ˜áƒ–áƒœáƒ”áƒ¡áƒ˜áƒ?", BUSINESS_TYPES)
+        password = st.text_input("áƒžáƒáƒ áƒáƒšáƒ˜", type="password")
+        password2 = st.text_input("áƒ’áƒáƒ˜áƒ›áƒ”áƒáƒ áƒ” áƒžáƒáƒ áƒáƒšáƒ˜", type="password")
         logo = st.file_uploader(
-            "ლოგო (სურვილისამებრ)",
+            "áƒšáƒáƒ’áƒ (áƒ¡áƒ£áƒ áƒ•áƒ˜áƒšáƒ˜áƒ¡áƒáƒ›áƒ”áƒ‘áƒ )",
             type=["png", "jpg", "jpeg", "webp"],
         )
 
-        agree = st.checkbox("ვეთანხმები, რომ ჩემი მონაცემები გამოიყენება ამ აპში.")
-        submitted = st.form_submit_button("რეგისტრაცია", use_container_width=True)
+        agree = st.checkbox("áƒ•áƒ”áƒ—áƒáƒœáƒ®áƒ›áƒ”áƒ‘áƒ˜, áƒ áƒáƒ› áƒ©áƒ”áƒ›áƒ˜ áƒ›áƒáƒœáƒáƒªáƒ”áƒ›áƒ”áƒ‘áƒ˜ áƒ’áƒáƒ›áƒáƒ˜áƒ§áƒ”áƒœáƒ”áƒ‘áƒ áƒáƒ› áƒáƒžáƒ¨áƒ˜.")
+        submitted = st.form_submit_button("áƒ áƒ”áƒ’áƒ˜áƒ¡áƒ¢áƒ áƒáƒªáƒ˜áƒ", use_container_width=True)
 
         if submitted:
             email = normalize_email(email)
             phone = normalize_phone(phone)
 
             if not valid_email(email):
-                st.error("შეიყვანე სწორი ელფოსტა.")
+                st.error("áƒ¨áƒ”áƒ˜áƒ§áƒ•áƒáƒœáƒ” áƒ¡áƒ¬áƒáƒ áƒ˜ áƒ”áƒšáƒ¤áƒáƒ¡áƒ¢áƒ.")
             elif not valid_phone(phone):
-                st.error("შეიყვანე სწორი საკონტაქტო ნომერი.")
+                st.error("áƒ¨áƒ”áƒ˜áƒ§áƒ•áƒáƒœáƒ” áƒ¡áƒ¬áƒáƒ áƒ˜ áƒ¡áƒáƒ™áƒáƒœáƒ¢áƒáƒ¥áƒ¢áƒ áƒœáƒáƒ›áƒ”áƒ áƒ˜.")
             elif not business_name.strip():
-                st.error("ბიზნესის დასახელება აუცილებელია.")
+                st.error("áƒ‘áƒ˜áƒ–áƒœáƒ”áƒ¡áƒ˜áƒ¡ áƒ“áƒáƒ¡áƒáƒ®áƒ”áƒšáƒ”áƒ‘áƒ áƒáƒ£áƒªáƒ˜áƒšáƒ”áƒ‘áƒ”áƒšáƒ˜áƒ.")
             elif not password_ok(password):
-                st.error("პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს.")
+                st.error("áƒžáƒáƒ áƒáƒšáƒ˜ áƒ£áƒœáƒ“áƒ áƒ¨áƒ”áƒ˜áƒªáƒáƒ•áƒ“áƒ”áƒ¡ áƒ›áƒ˜áƒœáƒ˜áƒ›áƒ£áƒ› 8 áƒ¡áƒ˜áƒ›áƒ‘áƒáƒšáƒáƒ¡.")
             elif password != password2:
-                st.error("პაროლები ერთმანეთს არ ემთხვევა.")
+                st.error("áƒžáƒáƒ áƒáƒšáƒ”áƒ‘áƒ˜ áƒ”áƒ áƒ—áƒ›áƒáƒœáƒ”áƒ—áƒ¡ áƒáƒ  áƒ”áƒ›áƒ—áƒ®áƒ•áƒ”áƒ•áƒ.")
             elif not agree:
-                st.error("გთხოვ, მონიშნე თანხმობა.")
+                st.error("áƒ’áƒ—áƒ®áƒáƒ•, áƒ›áƒáƒœáƒ˜áƒ¨áƒœáƒ” áƒ—áƒáƒœáƒ®áƒ›áƒáƒ‘áƒ.")
             else:
                 conn = db()
                 exists = conn.execute(
@@ -518,7 +463,7 @@ def registration_page():
 
                 if exists:
                     conn.close()
-                    st.error("ეს ელფოსტა ან ნომერი უკვე რეგისტრირებულია.")
+                    st.error("áƒ”áƒ¡ áƒ”áƒšáƒ¤áƒáƒ¡áƒ¢áƒ áƒáƒœ áƒœáƒáƒ›áƒ”áƒ áƒ˜ áƒ£áƒ™áƒ•áƒ” áƒ áƒ”áƒ’áƒ˜áƒ¡áƒ¢áƒ áƒ˜áƒ áƒ”áƒ‘áƒ£áƒšáƒ˜áƒ.")
                 else:
                     password_hash = bcrypt.hashpw(
                         password.encode("utf-8"),
@@ -553,11 +498,11 @@ def registration_page():
 
                     create_session(user_id, 30)
                     st.session_state.user_id = user_id
-                    st.session_state.page = "მთავარი"
-                    st.success("რეგისტრაცია წარმატებით დასრულდა!")
+                    st.session_state.page = "áƒ›áƒ—áƒáƒ•áƒáƒ áƒ˜"
+                    st.success("áƒ áƒ”áƒ’áƒ˜áƒ¡áƒ¢áƒ áƒáƒªáƒ˜áƒ áƒ¬áƒáƒ áƒ›áƒáƒ¢áƒ”áƒ‘áƒ˜áƒ— áƒ“áƒáƒ¡áƒ áƒ£áƒšáƒ“áƒ!")
                     st.rerun()
 
-    if st.button("უკვე მაქვს ანგარიში → შესვლა", use_container_width=True):
+    if st.button("áƒ£áƒ™áƒ•áƒ” áƒ›áƒáƒ¥áƒ•áƒ¡ áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜ â†’ áƒ¨áƒ”áƒ¡áƒ•áƒšáƒ", use_container_width=True):
         st.session_state.auth_mode = "login"
         st.rerun()
 
@@ -573,19 +518,19 @@ def login_page():
             <div class="sf-logo">
                 <span class="sf-gradient">StoreFlow</span>
             </div>
-            <h1>კეთილი იყოს შენი დაბრუნება</h1>
-            <p class="small-muted">შედი შენი ელფოსტით ან ნომრით.</p>
+            <h1>áƒ™áƒ”áƒ—áƒ˜áƒšáƒ˜ áƒ˜áƒ§áƒáƒ¡ áƒ¨áƒ”áƒœáƒ˜ áƒ“áƒáƒ‘áƒ áƒ£áƒœáƒ”áƒ‘áƒ</h1>
+            <p class="small-muted">áƒ¨áƒ”áƒ“áƒ˜ áƒ¨áƒ”áƒœáƒ˜ áƒ”áƒšáƒ¤áƒáƒ¡áƒ¢áƒ˜áƒ— áƒáƒœ áƒœáƒáƒ›áƒ áƒ˜áƒ—.</p>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
     with st.form("login_form"):
-        identifier = st.text_input("ელფოსტა ან ნომერი")
-        password = st.text_input("პაროლი", type="password")
-        remember = st.checkbox("დამიმახსოვრე ამ მოწყობილობაზე", value=True)
+        identifier = st.text_input("áƒ”áƒšáƒ¤áƒáƒ¡áƒ¢áƒ áƒáƒœ áƒœáƒáƒ›áƒ”áƒ áƒ˜")
+        password = st.text_input("áƒžáƒáƒ áƒáƒšáƒ˜", type="password")
+        remember = st.checkbox("áƒ“áƒáƒ›áƒ˜áƒ›áƒáƒ®áƒ¡áƒáƒ•áƒ áƒ” áƒáƒ› áƒ›áƒáƒ¬áƒ§áƒáƒ‘áƒ˜áƒšáƒáƒ‘áƒáƒ–áƒ”", value=True)
 
-        submitted = st.form_submit_button("შესვლა", use_container_width=True)
+        submitted = st.form_submit_button("áƒ¨áƒ”áƒ¡áƒ•áƒšáƒ", use_container_width=True)
 
         if submitted:
             identifier_clean = identifier.strip()
@@ -603,15 +548,15 @@ def login_page():
                 password.encode("utf-8"),
                 user["password_hash"].encode("utf-8"),
             ):
-                st.error("ელფოსტა/ნომერი ან პაროლი არასწორია.")
+                st.error("áƒ”áƒšáƒ¤áƒáƒ¡áƒ¢áƒ/áƒœáƒáƒ›áƒ”áƒ áƒ˜ áƒáƒœ áƒžáƒáƒ áƒáƒšáƒ˜ áƒáƒ áƒáƒ¡áƒ¬áƒáƒ áƒ˜áƒ.")
             else:
                 days = 30 if remember else 1
                 create_session(user["id"], days)
                 st.session_state.user_id = user["id"]
-                st.session_state.page = "მთავარი"
+                st.session_state.page = "áƒ›áƒ—áƒáƒ•áƒáƒ áƒ˜"
                 st.rerun()
 
-    if st.button("არ მაქვს ანგარიში → რეგისტრაცია", use_container_width=True):
+    if st.button("áƒáƒ  áƒ›áƒáƒ¥áƒ•áƒ¡ áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜ â†’ áƒ áƒ”áƒ’áƒ˜áƒ¡áƒ¢áƒ áƒáƒªáƒ˜áƒ", use_container_width=True):
         st.session_state.auth_mode = "register"
         st.rerun()
 
@@ -630,192 +575,130 @@ def dashboard(user):
     total_expense = sum(float(o["cost"]) for o in orders)
     total_profit = total_income - total_expense
 
-    unread = db().execute(
+    conn = db()
+    unread = conn.execute(
         "SELECT COUNT(*) AS c FROM notifications WHERE user_id = ? AND is_read = 0",
         (user_id,),
     ).fetchone()["c"]
+    conn.close()
+
+    initials = (user["business_name"] or "S")[:1].upper()
+    st.markdown(
+        f'''<div class="sf-topbar">
+            <div class="sf-search">âŒ•&nbsp;&nbsp; áƒ«áƒ”áƒ‘áƒœáƒ...</div>
+            <div class="sf-top-icon">â™§</div>
+            <div class="sf-user"><span class="sf-avatar">{initials}</span><span>{user["business_name"]}</span>âŒ„</div>
+        </div>''', unsafe_allow_html=True)
 
     st.markdown(
-        f"""
-        <div class="sf-card">
-            <div style="font-size:14px;color:#9698a9">მთავარი</div>
-            <h1 style="margin:4px 0 5px">გამარჯობა, {user["business_name"]} 👋</h1>
-            <div class="small-muted">აქედან აკონტროლებ შენს გაყიდვებს, ხარჯებს და მოგებას.</div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+        f'''<div class="sf-hero">
+            <h1>áƒ’áƒáƒ›áƒáƒ áƒ¯áƒáƒ‘áƒ, {user["business_name"]} ðŸ‘‹</h1>
+            <p>áƒ¨áƒ”áƒœáƒ˜ áƒ‘áƒ˜áƒ–áƒœáƒ”áƒ¡áƒ˜áƒ¡ áƒ›áƒáƒ áƒ—áƒ•áƒ áƒáƒ®áƒšáƒ áƒ‘áƒ”áƒ•áƒ áƒáƒ“ áƒ£áƒ¤áƒ áƒ áƒ›áƒáƒ áƒ¢áƒ˜áƒ•áƒ˜áƒ.</p>
+        </div>''', unsafe_allow_html=True)
 
-    c1, c2, c3 = st.columns(3)
-    c1.metric("შემოსავალი", money(total_income))
-    c2.metric("გასავალი", money(total_expense))
-    c3.metric("მოგება", money(total_profit))
+    c1, c2, c3 = st.columns(3, gap="medium")
+    cards = [
+        (c1, "income", "â†—", "áƒ¨áƒ”áƒ›áƒáƒ¡áƒáƒ•áƒáƒšáƒ˜", total_income, "áƒ‘áƒáƒšáƒ áƒžáƒ”áƒ áƒ˜áƒáƒ“áƒ˜áƒ¡ áƒ¨áƒ”áƒ›áƒáƒ¡áƒáƒ•áƒšáƒ”áƒ‘áƒ˜", "+12.5%"),
+        (c2, "expense", "â–£", "áƒ®áƒáƒ áƒ¯áƒ˜", total_expense, "áƒ‘áƒáƒšáƒ áƒžáƒ”áƒ áƒ˜áƒáƒ“áƒ˜áƒ¡ áƒ®áƒáƒ áƒ¯áƒ”áƒ‘áƒ˜", "+8.3%"),
+        (c3, "profit", "â†—", "áƒ›áƒáƒ’áƒ”áƒ‘áƒ", total_profit, "áƒ¨áƒ”áƒ›áƒáƒ¡áƒáƒ•áƒáƒšáƒ˜ âˆ’ áƒžáƒ áƒáƒ“áƒ£áƒ¥áƒ¢áƒ˜áƒ¡ áƒ¦áƒ˜áƒ áƒ”áƒ‘áƒ£áƒšáƒ”áƒ‘áƒ", "+18.7%"),
+    ]
+    for col, cls, icon, label, value, foot, change in cards:
+        with col:
+            st.markdown(
+                f'''<div class="sf-metric {cls}">
+                    <div class="metric-icon">{icon}</div>
+                    <div class="metric-label">{label}</div>
+                    <div class="metric-value">{money(value)}</div>
+                    <div class="metric-foot positive">â†‘ {change} &nbsp;Â·&nbsp; {foot}</div>
+                </div>''', unsafe_allow_html=True)
 
-    st.markdown("### ფინანსური დინამიკა")
-
+    st.markdown('<div class="sf-card">', unsafe_allow_html=True)
+    st.markdown('<div class="chart-head"><div><h3>áƒ¨áƒ”áƒ›áƒáƒ¡áƒáƒ•áƒáƒšáƒ˜, áƒ®áƒáƒ áƒ¯áƒ˜ áƒ“áƒ áƒ›áƒáƒ’áƒ”áƒ‘áƒ</h3><p>áƒ’áƒ áƒáƒ¤áƒ˜áƒ™áƒ–áƒ” áƒáƒ˜áƒ áƒ©áƒ˜áƒ” áƒ¡áƒáƒ¡áƒ£áƒ áƒ•áƒ”áƒšáƒ˜ áƒžáƒ”áƒ áƒ˜áƒáƒ“áƒ˜</p></div></div>', unsafe_allow_html=True)
     period = st.segmented_control(
-        "პერიოდი",
-        ["ბოლო 7 დღე", "ბოლო 1 თვე", "ბოლო 3 თვე", "ბოლო 1 წელი"],
-        default="ბოლო 7 დღე",
+        "áƒžáƒ”áƒ áƒ˜áƒáƒ“áƒ˜",
+        ["áƒ‘áƒáƒšáƒ 7 áƒ“áƒ¦áƒ”", "áƒ‘áƒáƒšáƒ 1 áƒ—áƒ•áƒ”", "áƒ‘áƒáƒšáƒ 3 áƒ—áƒ•áƒ”", "áƒ‘áƒáƒšáƒ 1 áƒ¬áƒ”áƒšáƒ˜"],
+        default="áƒ‘áƒáƒšáƒ 7 áƒ“áƒ¦áƒ”",
         label_visibility="collapsed",
-    )
+    ) or "áƒ‘áƒáƒšáƒ 7 áƒ“áƒ¦áƒ”"
 
-    if period is None:
-        period = "ბოლო 7 დღე"
-
-    days_map = {
-        "ბოლო 7 დღე": 7,
-        "ბოლო 1 თვე": 30,
-        "ბოლო 3 თვე": 90,
-        "ბოლო 1 წელი": 365,
-    }
-    days = days_map[period]
-    start = datetime.now() - timedelta(days=days - 1)
-
-    dates = pd.date_range(start.date(), datetime.now().date(), freq="D")
+    days = {"áƒ‘áƒáƒšáƒ 7 áƒ“áƒ¦áƒ”": 7, "áƒ‘áƒáƒšáƒ 1 áƒ—áƒ•áƒ”": 30, "áƒ‘áƒáƒšáƒ 3 áƒ—áƒ•áƒ”": 90, "áƒ‘áƒáƒšáƒ 1 áƒ¬áƒ”áƒšáƒ˜": 365}[period]
+    end_day = datetime.now().date()
+    start_day = end_day - timedelta(days=days - 1)
+    dates = pd.date_range(start_day, end_day, freq="D")
     df = pd.DataFrame({"date": dates})
 
-    order_df = pd.DataFrame(
-        [
-            {
-                "date": datetime.fromisoformat(o["created_at"]).date(),
-                "income": float(o["price"]),
-                "expense": float(o["cost"]),
-            }
-            for o in orders
-        ]
-    )
-
-    if len(order_df):
-        grouped = order_df.groupby("date")[["income", "expense"]].sum().reset_index()
+    order_df = pd.DataFrame([
+        {"date": pd.Timestamp(datetime.fromisoformat(o["created_at"]).date()),
+         "income": float(o["price"]), "expense": float(o["cost"])}
+        for o in orders
+        if o["created_at"]
+    ])
+    if not order_df.empty:
+        grouped = order_df.groupby("date", as_index=False)[["income", "expense"]].sum()
         df = df.merge(grouped, on="date", how="left")
     else:
-        df["income"] = 0
-        df["expense"] = 0
-
-    df = df.fillna(0)
+        df["income"] = 0.0
+        df["expense"] = 0.0
+    df[["income", "expense"]] = df[["income", "expense"]].fillna(0.0)
     df["profit"] = df["income"] - df["expense"]
 
     fig = go.Figure()
-    fig.add_trace(
-        go.Scatter(
-            x=df["date"],
-            y=df["income"],
-            name="შემოსავალი",
-            mode="lines",
-            line=dict(width=3, color="#7CFFB2"),
-        )
-    )
-    fig.add_trace(
-        go.Scatter(
-            x=df["date"],
-            y=df["expense"],
-            name="გასავალი",
-            mode="lines",
-            line=dict(width=3, color="#FF5D8F"),
-        )
-    )
-    fig.add_trace(
-        go.Scatter(
-            x=df["date"],
-            y=df["profit"],
-            name="მოგება",
-            mode="lines",
-            line=dict(width=3, color="#A875FF"),
-        )
-    )
-
-    fig.update_layout(
-        height=310,
-        margin=dict(l=10, r=10, t=15, b=10),
-        paper_bgcolor="rgba(0,0,0,0)",
-        plot_bgcolor="rgba(0,0,0,0)",
-        font=dict(color="#c8c7d2"),
-        legend=dict(orientation="h", y=-0.2),
-        xaxis=dict(showgrid=False),
-        yaxis=dict(gridcolor="rgba(255,255,255,.06)"),
-        hovermode="x unified",
-    )
-
+    for key, name, color in [("income","áƒ¨áƒ”áƒ›áƒáƒ¡áƒáƒ•áƒáƒšáƒ˜","#12e3a0"),("expense","áƒ®áƒáƒ áƒ¯áƒ˜","#ff3f88"),("profit","áƒ›áƒáƒ’áƒ”áƒ‘áƒ","#8b5cf6")]:
+        fig.add_trace(go.Scatter(x=df["date"], y=df[key], name=name, mode="lines", line=dict(width=2.5,color=color), fill="tozeroy" if key=="profit" else None, fillcolor="rgba(139,92,246,.06)" if key=="profit" else None))
+    fig.update_layout(height=300, margin=dict(l=5,r=5,t=5,b=5), paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", font=dict(color="#dfe4ef",family="Noto Sans Georgian, Arial"), legend=dict(orientation="h",y=-.18,font=dict(size=10,color="#9aa4b8")), xaxis=dict(showgrid=False,zeroline=False,tickfont=dict(color="#78849b",size=9)), yaxis=dict(gridcolor="rgba(255,255,255,.05)",zeroline=False,tickfont=dict(color="#78849b",size=9)), hovermode="x unified", hoverlabel=dict(bgcolor="#111827",bordercolor="#33415e",font=dict(color="#fff")))
     st.plotly_chart(fig, use_container_width=True, config={"displayModeBar": False})
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    col1, col2 = st.columns([2, 1])
+    st.markdown("### áƒ áƒ áƒ¨áƒ”áƒ’áƒ˜áƒ«áƒšáƒ˜áƒ áƒáƒ¥?")
+    f1, f2, f3, f4 = st.columns(4, gap="medium")
+    features = [
+        (f1,"â–£","áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ”áƒ‘áƒ˜áƒ¡ áƒ›áƒáƒ áƒ—áƒ•áƒ","áƒ›áƒáƒáƒ¬áƒ”áƒ¡áƒ áƒ˜áƒ’áƒ” áƒ§áƒ•áƒ”áƒšáƒ áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ áƒ”áƒ áƒ— áƒ¡áƒ˜áƒ•áƒ áƒªáƒ”áƒ¨áƒ˜."),
+        (f2,"â–¤","áƒ®áƒáƒ áƒ¯áƒ”áƒ‘áƒ˜áƒ¡ áƒ™áƒáƒœáƒ¢áƒ áƒáƒšáƒ˜","áƒ“áƒáƒáƒ™áƒ•áƒ˜áƒ áƒ“áƒ˜ áƒ®áƒáƒ áƒ¯áƒ”áƒ‘áƒ¡ áƒ“áƒ áƒ áƒ”áƒáƒšáƒ£áƒ  áƒ›áƒáƒ’áƒ”áƒ‘áƒáƒ¡."),
+        (f3,"â†—","áƒ›áƒáƒ’áƒ”áƒ‘áƒ˜áƒ¡ áƒ’áƒáƒ–áƒ áƒ“áƒ","áƒáƒœáƒáƒšáƒ˜áƒ¢áƒ˜áƒ™áƒ˜áƒ— áƒ“áƒáƒ˜áƒœáƒáƒ®áƒ” áƒ¡áƒáƒ“ áƒ˜áƒ–áƒ áƒ“áƒ”áƒ‘áƒ áƒ¨áƒ”áƒ“áƒ”áƒ’áƒ˜."),
+        (f4,"â—«","áƒ›áƒáƒ‘áƒ˜áƒšáƒ£áƒ áƒ˜ áƒáƒžáƒšáƒ˜áƒ™áƒáƒªáƒ˜áƒ","áƒ›áƒáƒ áƒ—áƒ” áƒ¨áƒ”áƒœáƒ˜ áƒ‘áƒ˜áƒ–áƒœáƒ”áƒ¡áƒ˜ áƒœáƒ”áƒ‘áƒ˜áƒ¡áƒ›áƒ˜áƒ”áƒ áƒ˜ áƒáƒ“áƒ’áƒ˜áƒšáƒ˜áƒ“áƒáƒœ."),
+    ]
+    for col,icon,title,desc in features:
+        with col:
+            st.markdown(f'<div class="sf-feature"><div class="feature-icon">{icon}</div><h4>{title}</h4><p>{desc}</p></div>',unsafe_allow_html=True)
 
-    with col1:
-        st.markdown(
-            """
-            <div class="sf-card">
-                <h3>ბოლო შეკვეთები</h3>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-        for o in orders[:5]:
-            profit = float(o["price"]) - float(o["cost"])
-            st.markdown(
-                f"""
-                <div class="order-card">
-                    <b>#{o["id"]} — {o["product"]}</b><br>
-                    <span class="small-muted">{o["customer_name"]} · {o["phone"]}</span>
-                    <div style="margin-top:8px">
-                        <span class="badge">{o["stage"]}</span>
-                        <span style="float:right;color:#7CFFB2">
-                            მოგება {money(profit)}
-                        </span>
-                    </div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
-
-        if not orders:
-            st.info("ჯერ შეკვეთები არ გაქვს. დაამატე პირველი შეკვეთა.")
-
-    with col2:
-        st.markdown(
-            f"""
-            <div class="sf-card">
-                <h3>სწრაფი ინფორმაცია</h3>
-                <p>📦 ყველა შეკვეთა: <b>{len(orders)}</b></p>
-                <p>📝 გაფორმებული: <b>{sum(o["stage"]=="გაფორმებული" for o in orders)}</b></p>
-                <p>🚚 ჩამოსული: <b>{sum(o["stage"]=="ჩამოსულია" for o in orders)}</b></p>
-                <p>✅ ჩაბარებული: <b>{sum(o["stage"]=="ჩაბარებული" for o in orders)}</b></p>
-                <p>🔔 ახალი შეტყობინება: <b>{unread}</b></p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+    st.markdown("### áƒ‘áƒáƒšáƒ áƒ¢áƒ áƒáƒœáƒ–áƒáƒ¥áƒªáƒ˜áƒ”áƒ‘áƒ˜")
+    if orders:
+        rows=[]
+        for o in orders[:6]:
+            rows.append({"áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ":f'#{o["id"]} Â· {o["product"]}',"áƒ›áƒáƒ›áƒ®áƒ›áƒáƒ áƒ”áƒ‘áƒ”áƒšáƒ˜":o["customer_name"],"áƒ¡áƒ¢áƒáƒ¢áƒ£áƒ¡áƒ˜":o["stage"],"áƒ—áƒáƒœáƒ®áƒ":money(float(o["price"]))})
+        st.dataframe(pd.DataFrame(rows), use_container_width=True, hide_index=True)
+    else:
+        st.markdown('<div class="sf-card"><span class="small-muted">áƒ¯áƒ”áƒ  áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ”áƒ‘áƒ˜ áƒáƒ  áƒ’áƒáƒ¥áƒ•áƒ¡.</span></div>',unsafe_allow_html=True)
 
 
 # -----------------------------
 # New order
 # -----------------------------
 def new_order_page(user):
-    st.title("შეკვეთის გაფორმება")
-    st.caption("შეავსე შეკვეთის ინფორმაცია — მოგება ავტომატურად დაითვლება.")
+    st.title("áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ˜áƒ¡ áƒ’áƒáƒ¤áƒáƒ áƒ›áƒ”áƒ‘áƒ")
+    st.caption("áƒ¨áƒ”áƒáƒ•áƒ¡áƒ” áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ˜áƒ¡ áƒ˜áƒœáƒ¤áƒáƒ áƒ›áƒáƒªáƒ˜áƒ â€” áƒ›áƒáƒ’áƒ”áƒ‘áƒ áƒáƒ•áƒ¢áƒáƒ›áƒáƒ¢áƒ£áƒ áƒáƒ“ áƒ“áƒáƒ˜áƒ—áƒ•áƒšáƒ”áƒ‘áƒ.")
 
     left, right = st.columns([1.5, 1])
 
     with left:
-        customer_name = st.text_input("სახელი")
-        phone = st.text_input("ნომერი")
-        address = st.text_area("მისამართი", height=90)
-        product = st.text_input("პროდუქტი")
+        customer_name = st.text_input("áƒ¡áƒáƒ®áƒ”áƒšáƒ˜")
+        phone = st.text_input("áƒœáƒáƒ›áƒ”áƒ áƒ˜")
+        address = st.text_area("áƒ›áƒ˜áƒ¡áƒáƒ›áƒáƒ áƒ—áƒ˜", height=90)
+        product = st.text_input("áƒžáƒ áƒáƒ“áƒ£áƒ¥áƒ¢áƒ˜")
         product_photo = st.file_uploader(
-            "პროდუქტის ფოტო (სურვილისამებრ)",
+            "áƒžáƒ áƒáƒ“áƒ£áƒ¥áƒ¢áƒ˜áƒ¡ áƒ¤áƒáƒ¢áƒ (áƒ¡áƒ£áƒ áƒ•áƒ˜áƒšáƒ˜áƒ¡áƒáƒ›áƒ”áƒ‘áƒ )",
             type=["png", "jpg", "jpeg", "webp"],
         )
 
     with right:
-        price = st.number_input("ფასი", min_value=0.0, step=1.0, format="%.2f")
-        cost = st.number_input("ღირებულება", min_value=0.0, step=1.0, format="%.2f")
+        price = st.number_input("áƒ¤áƒáƒ¡áƒ˜", min_value=0.0, step=1.0, format="%.2f")
+        cost = st.number_input("áƒ¦áƒ˜áƒ áƒ”áƒ‘áƒ£áƒšáƒ”áƒ‘áƒ", min_value=0.0, step=1.0, format="%.2f")
         transport_fee = st.number_input(
-            "ტრანსპორტირების თანხა",
+            "áƒ¢áƒ áƒáƒœáƒ¡áƒžáƒáƒ áƒ¢áƒ˜áƒ áƒ”áƒ‘áƒ˜áƒ¡ áƒ—áƒáƒœáƒ®áƒ",
             min_value=0.0,
             step=1.0,
             format="%.2f",
-            help="ეს თანხა ხარჯებში არ ჩაითვლება.",
+            help="áƒ”áƒ¡ áƒ—áƒáƒœáƒ®áƒ áƒ®áƒáƒ áƒ¯áƒ”áƒ‘áƒ¨áƒ˜ áƒáƒ  áƒ©áƒáƒ˜áƒ—áƒ•áƒšáƒ”áƒ‘áƒ.",
         )
 
         profit = price - cost
@@ -823,34 +706,34 @@ def new_order_page(user):
         st.markdown(
             f"""
             <div class="sf-card" style="margin-top:15px;text-align:center">
-                <div class="small-muted">ამ შეკვეთის მოგება</div>
+                <div class="small-muted">áƒáƒ› áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ˜áƒ¡ áƒ›áƒáƒ’áƒ”áƒ‘áƒ</div>
                 <div style="font-size:34px;font-weight:800;color:#7CFFB2">
                     {money(profit)}
                 </div>
-                <div class="small-muted">ფასი − პროდუქტის ღირებულება</div>
+                <div class="small-muted">áƒ¤áƒáƒ¡áƒ˜ âˆ’ áƒžáƒ áƒáƒ“áƒ£áƒ¥áƒ¢áƒ˜áƒ¡ áƒ¦áƒ˜áƒ áƒ”áƒ‘áƒ£áƒšáƒ”áƒ‘áƒ</div>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-    if st.button("შეკვეთის გაფორმება →", use_container_width=True):
+    if st.button("áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ˜áƒ¡ áƒ’áƒáƒ¤áƒáƒ áƒ›áƒ”áƒ‘áƒ â†’", use_container_width=True):
         if not customer_name.strip():
-            st.error("სახელი აუცილებელია.")
+            st.error("áƒ¡áƒáƒ®áƒ”áƒšáƒ˜ áƒáƒ£áƒªáƒ˜áƒšáƒ”áƒ‘áƒ”áƒšáƒ˜áƒ.")
             return
         if not valid_phone(normalize_phone(phone)):
-            st.error("შეიყვანე სწორი ნომერი.")
+            st.error("áƒ¨áƒ”áƒ˜áƒ§áƒ•áƒáƒœáƒ” áƒ¡áƒ¬áƒáƒ áƒ˜ áƒœáƒáƒ›áƒ”áƒ áƒ˜.")
             return
         if not address.strip():
-            st.error("მისამართი აუცილებელია.")
+            st.error("áƒ›áƒ˜áƒ¡áƒáƒ›áƒáƒ áƒ—áƒ˜ áƒáƒ£áƒªáƒ˜áƒšáƒ”áƒ‘áƒ”áƒšáƒ˜áƒ.")
             return
         if not product.strip():
-            st.error("პროდუქტი აუცილებელია.")
+            st.error("áƒžáƒ áƒáƒ“áƒ£áƒ¥áƒ¢áƒ˜ áƒáƒ£áƒªáƒ˜áƒšáƒ”áƒ‘áƒ”áƒšáƒ˜áƒ.")
             return
         if price <= 0:
-            st.error("ფასი უნდა იყოს 0-ზე მეტი.")
+            st.error("áƒ¤áƒáƒ¡áƒ˜ áƒ£áƒœáƒ“áƒ áƒ˜áƒ§áƒáƒ¡ 0-áƒ–áƒ” áƒ›áƒ”áƒ¢áƒ˜.")
             return
         if cost < 0:
-            st.error("ღირებულება არასწორია.")
+            st.error("áƒ¦áƒ˜áƒ áƒ”áƒ‘áƒ£áƒšáƒ”áƒ‘áƒ áƒáƒ áƒáƒ¡áƒ¬áƒáƒ áƒ˜áƒ.")
             return
 
         photo_path = save_uploaded_file(product_photo, f"product_{user['id']}")
@@ -861,7 +744,7 @@ def new_order_page(user):
             INSERT INTO orders
             (user_id, customer_name, price, cost, address, phone, product,
              photo_path, transport_fee, stage, created_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'გაფორმებული', ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'áƒ’áƒáƒ¤áƒáƒ áƒ›áƒ”áƒ‘áƒ£áƒšáƒ˜', ?)
             """,
             (
                 user["id"],
@@ -882,12 +765,12 @@ def new_order_page(user):
 
         add_notification(
             user["id"],
-            "ახალი შეკვეთა",
-            f"შეკვეთა #{order_id} — {product} წარმატებით გაფორმდა.",
+            "áƒáƒ®áƒáƒšáƒ˜ áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ",
+            f"áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ #{order_id} â€” {product} áƒ¬áƒáƒ áƒ›áƒáƒ¢áƒ”áƒ‘áƒ˜áƒ— áƒ’áƒáƒ¤áƒáƒ áƒ›áƒ“áƒ.",
             "order",
         )
 
-        st.success(f"შეკვეთა #{order_id} წარმატებით გაფორმდა!")
+        st.success(f"áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ #{order_id} áƒ¬áƒáƒ áƒ›áƒáƒ¢áƒ”áƒ‘áƒ˜áƒ— áƒ’áƒáƒ¤áƒáƒ áƒ›áƒ“áƒ!")
         st.rerun()
 
 
@@ -902,21 +785,21 @@ def render_order_card(order, stage):
         <div class="order-card">
             <div style="display:flex;justify-content:space-between;gap:10px">
                 <div>
-                    <b>#{order["id"]} — {order["product"]}</b><br>
+                    <b>#{order["id"]} â€” {order["product"]}</b><br>
                     <span class="small-muted">
-                        {order["customer_name"]} · {order["phone"]}
+                        {order["customer_name"]} Â· {order["phone"]}
                     </span>
                 </div>
                 <div style="text-align:right">
                     <b>{money(order["price"])}</b><br>
-                    <span style="color:#7CFFB2">მოგება {money(profit)}</span>
+                    <span style="color:#7CFFB2">áƒ›áƒáƒ’áƒ”áƒ‘áƒ {money(profit)}</span>
                 </div>
             </div>
             <hr>
             <div class="small-muted">
-                📍 {order["address"]}<br>
-                💰 ღირებულება: {money(order["cost"])}<br>
-                🚚 ტრანსპორტირება: {money(order["transport_fee"])}
+                ðŸ“ {order["address"]}<br>
+                ðŸ’° áƒ¦áƒ˜áƒ áƒ”áƒ‘áƒ£áƒšáƒ”áƒ‘áƒ: {money(order["cost"])}<br>
+                ðŸšš áƒ¢áƒ áƒáƒœáƒ¡áƒžáƒáƒ áƒ¢áƒ˜áƒ áƒ”áƒ‘áƒ: {money(order["transport_fee"])}
             </div>
         </div>
         """,
@@ -926,9 +809,9 @@ def render_order_card(order, stage):
     if order["photo_path"] and Path(order["photo_path"]).exists():
         st.image(order["photo_path"], width=160)
 
-    if stage == "გაფორმებული":
+    if stage == "áƒ’áƒáƒ¤áƒáƒ áƒ›áƒ”áƒ‘áƒ£áƒšáƒ˜":
         if st.button(
-            f"გადავიდა „ჩამოსულია“-ში #{order['id']}",
+            f"áƒ’áƒáƒ“áƒáƒ•áƒ˜áƒ“áƒ â€žáƒ©áƒáƒ›áƒáƒ¡áƒ£áƒšáƒ˜áƒâ€œ-áƒ¨áƒ˜ #{order['id']}",
             key=f"arrive_{order['id']}",
             use_container_width=True,
         ):
@@ -936,7 +819,7 @@ def render_order_card(order, stage):
             conn.execute(
                 """
                 UPDATE orders
-                SET stage = 'ჩამოსულია', arrived_at = ?
+                SET stage = 'áƒ©áƒáƒ›áƒáƒ¡áƒ£áƒšáƒ˜áƒ', arrived_at = ?
                 WHERE id = ?
                 """,
                 (now_iso(), order["id"]),
@@ -946,15 +829,15 @@ def render_order_card(order, stage):
 
             add_notification(
                 order["user_id"],
-                "შეკვეთის სტატუსი შეიცვალა",
-                f"შეკვეთა #{order['id']} გადავიდა „ჩამოსულია“-ში.",
+                "áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ˜áƒ¡ áƒ¡áƒ¢áƒáƒ¢áƒ£áƒ¡áƒ˜ áƒ¨áƒ”áƒ˜áƒªáƒ•áƒáƒšáƒ",
+                f"áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ #{order['id']} áƒ’áƒáƒ“áƒáƒ•áƒ˜áƒ“áƒ â€žáƒ©áƒáƒ›áƒáƒ¡áƒ£áƒšáƒ˜áƒâ€œ-áƒ¨áƒ˜.",
                 "order",
             )
             st.rerun()
 
-    elif stage == "ჩამოსულია":
+    elif stage == "áƒ©áƒáƒ›áƒáƒ¡áƒ£áƒšáƒ˜áƒ":
         paid = st.checkbox(
-            "მომხმარებელმა ტრანსპორტირების თანხა გადაიხადა",
+            "áƒ›áƒáƒ›áƒ®áƒ›áƒáƒ áƒ”áƒ‘áƒ”áƒšáƒ›áƒ áƒ¢áƒ áƒáƒœáƒ¡áƒžáƒáƒ áƒ¢áƒ˜áƒ áƒ”áƒ‘áƒ˜áƒ¡ áƒ—áƒáƒœáƒ®áƒ áƒ’áƒáƒ“áƒáƒ˜áƒ®áƒáƒ“áƒ",
             value=bool(order["transport_paid"]),
             key=f"transport_paid_{order['id']}",
         )
@@ -970,7 +853,7 @@ def render_order_card(order, stage):
             st.rerun()
 
         if st.button(
-            f"ჩაბარებულში გადატანა #{order['id']}",
+            f"áƒ©áƒáƒ‘áƒáƒ áƒ”áƒ‘áƒ£áƒšáƒ¨áƒ˜ áƒ’áƒáƒ“áƒáƒ¢áƒáƒœáƒ #{order['id']}",
             key=f"deliver_{order['id']}",
             use_container_width=True,
             disabled=not paid,
@@ -979,7 +862,7 @@ def render_order_card(order, stage):
             conn.execute(
                 """
                 UPDATE orders
-                SET stage = 'ჩაბარებული', delivered_at = ?
+                SET stage = 'áƒ©áƒáƒ‘áƒáƒ áƒ”áƒ‘áƒ£áƒšáƒ˜', delivered_at = ?
                 WHERE id = ?
                 """,
                 (now_iso(), order["id"]),
@@ -989,21 +872,21 @@ def render_order_card(order, stage):
 
             add_notification(
                 order["user_id"],
-                "შეკვეთა ჩაბარდა",
-                f"შეკვეთა #{order['id']} მონიშნულია როგორც ჩაბარებული.",
+                "áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ áƒ©áƒáƒ‘áƒáƒ áƒ“áƒ",
+                f"áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ #{order['id']} áƒ›áƒáƒœáƒ˜áƒ¨áƒœáƒ£áƒšáƒ˜áƒ áƒ áƒáƒ’áƒáƒ áƒª áƒ©áƒáƒ‘áƒáƒ áƒ”áƒ‘áƒ£áƒšáƒ˜.",
                 "order",
             )
             st.rerun()
 
     else:
-        st.success("შეკვეთა ჩაბარებულია.")
+        st.success("áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ áƒ©áƒáƒ‘áƒáƒ áƒ”áƒ‘áƒ£áƒšáƒ˜áƒ.")
 
 
 def orders_page(user):
-    st.title("შეკვეთები")
+    st.title("áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ”áƒ‘áƒ˜")
 
     orders = get_orders(user["id"])
-    stages = ["გაფორმებული", "ჩამოსულია", "ჩაბარებული"]
+    stages = ["áƒ’áƒáƒ¤áƒáƒ áƒ›áƒ”áƒ‘áƒ£áƒšáƒ˜", "áƒ©áƒáƒ›áƒáƒ¡áƒ£áƒšáƒ˜áƒ", "áƒ©áƒáƒ‘áƒáƒ áƒ”áƒ‘áƒ£áƒšáƒ˜"]
 
     counts = {
         stage: sum(o["stage"] == stage for o in orders)
@@ -1011,17 +894,17 @@ def orders_page(user):
     }
 
     a, b, c = st.columns(3)
-    a.metric("გაფორმებული", counts["გაფორმებული"])
-    b.metric("ჩამოსულია", counts["ჩამოსულია"])
-    c.metric("ჩაბარებული", counts["ჩაბარებული"])
+    a.metric("áƒ’áƒáƒ¤áƒáƒ áƒ›áƒ”áƒ‘áƒ£áƒšáƒ˜", counts["áƒ’áƒáƒ¤áƒáƒ áƒ›áƒ”áƒ‘áƒ£áƒšáƒ˜"])
+    b.metric("áƒ©áƒáƒ›áƒáƒ¡áƒ£áƒšáƒ˜áƒ", counts["áƒ©áƒáƒ›áƒáƒ¡áƒ£áƒšáƒ˜áƒ"])
+    c.metric("áƒ©áƒáƒ‘áƒáƒ áƒ”áƒ‘áƒ£áƒšáƒ˜", counts["áƒ©áƒáƒ‘áƒáƒ áƒ”áƒ‘áƒ£áƒšáƒ˜"])
 
     st.markdown("")
 
     tabs = st.tabs(
         [
-            f"გაფორმებული · {counts['გაფორმებული']}",
-            f"ჩამოსულია · {counts['ჩამოსულია']}",
-            f"ჩაბარებული · {counts['ჩაბარებული']}",
+            f"áƒ’áƒáƒ¤áƒáƒ áƒ›áƒ”áƒ‘áƒ£áƒšáƒ˜ Â· {counts['áƒ’áƒáƒ¤áƒáƒ áƒ›áƒ”áƒ‘áƒ£áƒšáƒ˜']}",
+            f"áƒ©áƒáƒ›áƒáƒ¡áƒ£áƒšáƒ˜áƒ Â· {counts['áƒ©áƒáƒ›áƒáƒ¡áƒ£áƒšáƒ˜áƒ']}",
+            f"áƒ©áƒáƒ‘áƒáƒ áƒ”áƒ‘áƒ£áƒšáƒ˜ Â· {counts['áƒ©áƒáƒ‘áƒáƒ áƒ”áƒ‘áƒ£áƒšáƒ˜']}",
         ]
     )
 
@@ -1029,7 +912,7 @@ def orders_page(user):
         with tab:
             matching = [o for o in orders if o["stage"] == stage]
             if not matching:
-                st.info("ამ ეტაპზე შეკვეთები არ არის.")
+                st.info("áƒáƒ› áƒ”áƒ¢áƒáƒžáƒ–áƒ” áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ”áƒ‘áƒ˜ áƒáƒ  áƒáƒ áƒ˜áƒ¡.")
             for order in matching:
                 render_order_card(order, stage)
 
@@ -1038,7 +921,7 @@ def orders_page(user):
 # Notifications
 # -----------------------------
 def notifications_page(user):
-    st.title("შეტყობინებები")
+    st.title("áƒ¨áƒ”áƒ¢áƒ§áƒáƒ‘áƒ˜áƒœáƒ”áƒ‘áƒ”áƒ‘áƒ˜")
 
     create_due_reminders(user["id"])
 
@@ -1060,17 +943,17 @@ def notifications_page(user):
     conn.close()
 
     if not rows:
-        st.info("შეტყობინებები ჯერ არ არის.")
+        st.info("áƒ¨áƒ”áƒ¢áƒ§áƒáƒ‘áƒ˜áƒœáƒ”áƒ‘áƒ”áƒ‘áƒ˜ áƒ¯áƒ”áƒ  áƒáƒ  áƒáƒ áƒ˜áƒ¡.")
         return
 
     for n in rows:
         icon = {
-            "order": "📦",
-            "reminder": "⏰",
-            "profile": "👤",
-            "security": "🔐",
-            "info": "🔔",
-        }.get(n["kind"], "🔔")
+            "order": "ðŸ“¦",
+            "reminder": "â°",
+            "profile": "ðŸ‘¤",
+            "security": "ðŸ”",
+            "info": "ðŸ””",
+        }.get(n["kind"], "ðŸ””")
 
         st.markdown(
             f"""
@@ -1090,18 +973,18 @@ def notifications_page(user):
 # Profile
 # -----------------------------
 def profile_page(user):
-    st.title("პროფილი")
-    st.caption("ცვლილებამდე გადაამოწმე ინფორმაცია ყურადღებით.")
+    st.title("áƒžáƒ áƒáƒ¤áƒ˜áƒšáƒ˜")
+    st.caption("áƒªáƒ•áƒšáƒ˜áƒšáƒ”áƒ‘áƒáƒ›áƒ“áƒ” áƒ’áƒáƒ“áƒáƒáƒ›áƒáƒ¬áƒ›áƒ” áƒ˜áƒœáƒ¤áƒáƒ áƒ›áƒáƒªáƒ˜áƒ áƒ§áƒ£áƒ áƒáƒ“áƒ¦áƒ”áƒ‘áƒ˜áƒ—.")
 
     with st.form("profile_form"):
         business_name = st.text_input(
-            "ბიზნესის დასახელება",
+            "áƒ‘áƒ˜áƒ–áƒœáƒ”áƒ¡áƒ˜áƒ¡ áƒ“áƒáƒ¡áƒáƒ®áƒ”áƒšáƒ”áƒ‘áƒ",
             value=user["business_name"],
         )
-        email = st.text_input("ელფოსტა", value=user["email"] or "")
-        phone = st.text_input("ნომერი", value=user["phone"] or "")
+        email = st.text_input("áƒ”áƒšáƒ¤áƒáƒ¡áƒ¢áƒ", value=user["email"] or "")
+        phone = st.text_input("áƒœáƒáƒ›áƒ”áƒ áƒ˜", value=user["phone"] or "")
         business_type = st.selectbox(
-            "ბიზნესის ტიპი",
+            "áƒ‘áƒ˜áƒ–áƒœáƒ”áƒ¡áƒ˜áƒ¡ áƒ¢áƒ˜áƒžáƒ˜",
             BUSINESS_TYPES,
             index=(
                 BUSINESS_TYPES.index(user["business_type"])
@@ -1110,25 +993,25 @@ def profile_page(user):
             ),
         )
         logo = st.file_uploader(
-            "ახალი ლოგო",
+            "áƒáƒ®áƒáƒšáƒ˜ áƒšáƒáƒ’áƒ",
             type=["png", "jpg", "jpeg", "webp"],
         )
 
         confirm = st.checkbox(
-            "ვადასტურებ, რომ ცვლილებების შენახვამდე ყველაფერი გადავამოწმე."
+            "áƒ•áƒáƒ“áƒáƒ¡áƒ¢áƒ£áƒ áƒ”áƒ‘, áƒ áƒáƒ› áƒªáƒ•áƒšáƒ˜áƒšáƒ”áƒ‘áƒ”áƒ‘áƒ˜áƒ¡ áƒ¨áƒ”áƒœáƒáƒ®áƒ•áƒáƒ›áƒ“áƒ” áƒ§áƒ•áƒ”áƒšáƒáƒ¤áƒ”áƒ áƒ˜ áƒ’áƒáƒ“áƒáƒ•áƒáƒ›áƒáƒ¬áƒ›áƒ”."
         )
 
-        save = st.form_submit_button("ცვლილებების შენახვა")
+        save = st.form_submit_button("áƒªáƒ•áƒšáƒ˜áƒšáƒ”áƒ‘áƒ”áƒ‘áƒ˜áƒ¡ áƒ¨áƒ”áƒœáƒáƒ®áƒ•áƒ")
 
         if save:
             if not confirm:
-                st.error("ცვლილებების შესანახად საჭიროა დადასტურება.")
+                st.error("áƒªáƒ•áƒšáƒ˜áƒšáƒ”áƒ‘áƒ”áƒ‘áƒ˜áƒ¡ áƒ¨áƒ”áƒ¡áƒáƒœáƒáƒ®áƒáƒ“ áƒ¡áƒáƒ­áƒ˜áƒ áƒáƒ áƒ“áƒáƒ“áƒáƒ¡áƒ¢áƒ£áƒ áƒ”áƒ‘áƒ.")
             elif not valid_email(email.strip()):
-                st.error("ელფოსტა არასწორია.")
+                st.error("áƒ”áƒšáƒ¤áƒáƒ¡áƒ¢áƒ áƒáƒ áƒáƒ¡áƒ¬áƒáƒ áƒ˜áƒ.")
             elif not valid_phone(phone):
-                st.error("ნომერი არასწორია.")
+                st.error("áƒœáƒáƒ›áƒ”áƒ áƒ˜ áƒáƒ áƒáƒ¡áƒ¬áƒáƒ áƒ˜áƒ.")
             elif not business_name.strip():
-                st.error("ბიზნესის დასახელება აუცილებელია.")
+                st.error("áƒ‘áƒ˜áƒ–áƒœáƒ”áƒ¡áƒ˜áƒ¡ áƒ“áƒáƒ¡áƒáƒ®áƒ”áƒšáƒ”áƒ‘áƒ áƒáƒ£áƒªáƒ˜áƒšáƒ”áƒ‘áƒ”áƒšáƒ˜áƒ.")
             else:
                 conn = db()
 
@@ -1143,7 +1026,7 @@ def profile_page(user):
 
                 if conflict:
                     conn.close()
-                    st.error("ეს ელფოსტა ან ნომერი სხვა ანგარიშს ეკუთვნის.")
+                    st.error("áƒ”áƒ¡ áƒ”áƒšáƒ¤áƒáƒ¡áƒ¢áƒ áƒáƒœ áƒœáƒáƒ›áƒ”áƒ áƒ˜ áƒ¡áƒ®áƒ•áƒ áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ¡ áƒ”áƒ™áƒ£áƒ—áƒ•áƒœáƒ˜áƒ¡.")
                 else:
                     logo_path = user["logo_path"]
                     if logo:
@@ -1170,43 +1053,43 @@ def profile_page(user):
 
                     add_notification(
                         user["id"],
-                        "პროფილი შეიცვალა",
-                        "ბიზნესის პროფილის მონაცემები წარმატებით განახლდა.",
+                        "áƒžáƒ áƒáƒ¤áƒ˜áƒšáƒ˜ áƒ¨áƒ”áƒ˜áƒªáƒ•áƒáƒšáƒ",
+                        "áƒ‘áƒ˜áƒ–áƒœáƒ”áƒ¡áƒ˜áƒ¡ áƒžáƒ áƒáƒ¤áƒ˜áƒšáƒ˜áƒ¡ áƒ›áƒáƒœáƒáƒªáƒ”áƒ›áƒ”áƒ‘áƒ˜ áƒ¬áƒáƒ áƒ›áƒáƒ¢áƒ”áƒ‘áƒ˜áƒ— áƒ’áƒáƒœáƒáƒ®áƒšáƒ“áƒ.",
                         "profile",
                     )
 
-                    st.success("პროფილი განახლდა.")
+                    st.success("áƒžáƒ áƒáƒ¤áƒ˜áƒšáƒ˜ áƒ’áƒáƒœáƒáƒ®áƒšáƒ“áƒ.")
                     st.rerun()
 
     st.markdown("---")
-    st.subheader("პაროლის შეცვლა")
+    st.subheader("áƒžáƒáƒ áƒáƒšáƒ˜áƒ¡ áƒ¨áƒ”áƒªáƒ•áƒšáƒ")
 
     with st.form("password_form"):
-        old_password = st.text_input("ძველი პაროლი", type="password")
-        new_password = st.text_input("ახალი პაროლი", type="password")
+        old_password = st.text_input("áƒ«áƒ•áƒ”áƒšáƒ˜ áƒžáƒáƒ áƒáƒšáƒ˜", type="password")
+        new_password = st.text_input("áƒáƒ®áƒáƒšáƒ˜ áƒžáƒáƒ áƒáƒšáƒ˜", type="password")
         new_password2 = st.text_input(
-            "გაიმეორე ახალი პაროლი",
+            "áƒ’áƒáƒ˜áƒ›áƒ”áƒáƒ áƒ” áƒáƒ®áƒáƒšáƒ˜ áƒžáƒáƒ áƒáƒšáƒ˜",
             type="password",
         )
 
         confirm_password = st.checkbox(
-            "ვადასტურებ, რომ ახალი პაროლი სწორად შევამოწმე და ძველის დაბრუნება საჭიროების შემთხვევაში მხოლოდ ახალი ცვლილებით შემეძლება."
+            "áƒ•áƒáƒ“áƒáƒ¡áƒ¢áƒ£áƒ áƒ”áƒ‘, áƒ áƒáƒ› áƒáƒ®áƒáƒšáƒ˜ áƒžáƒáƒ áƒáƒšáƒ˜ áƒ¡áƒ¬áƒáƒ áƒáƒ“ áƒ¨áƒ”áƒ•áƒáƒ›áƒáƒ¬áƒ›áƒ” áƒ“áƒ áƒ«áƒ•áƒ”áƒšáƒ˜áƒ¡ áƒ“áƒáƒ‘áƒ áƒ£áƒœáƒ”áƒ‘áƒ áƒ¡áƒáƒ­áƒ˜áƒ áƒáƒ”áƒ‘áƒ˜áƒ¡ áƒ¨áƒ”áƒ›áƒ—áƒ®áƒ•áƒ”áƒ•áƒáƒ¨áƒ˜ áƒ›áƒ®áƒáƒšáƒáƒ“ áƒáƒ®áƒáƒšáƒ˜ áƒªáƒ•áƒšáƒ˜áƒšáƒ”áƒ‘áƒ˜áƒ— áƒ¨áƒ”áƒ›áƒ”áƒ«áƒšáƒ”áƒ‘áƒ."
         )
 
-        change = st.form_submit_button("პაროლის შეცვლა")
+        change = st.form_submit_button("áƒžáƒáƒ áƒáƒšáƒ˜áƒ¡ áƒ¨áƒ”áƒªáƒ•áƒšáƒ")
 
         if change:
             if not confirm_password:
-                st.error("ჯერ დაადასტურე ცვლილება.")
+                st.error("áƒ¯áƒ”áƒ  áƒ“áƒáƒáƒ“áƒáƒ¡áƒ¢áƒ£áƒ áƒ” áƒªáƒ•áƒšáƒ˜áƒšáƒ”áƒ‘áƒ.")
             elif not bcrypt.checkpw(
                 old_password.encode("utf-8"),
                 user["password_hash"].encode("utf-8"),
             ):
-                st.error("ძველი პაროლი არასწორია.")
+                st.error("áƒ«áƒ•áƒ”áƒšáƒ˜ áƒžáƒáƒ áƒáƒšáƒ˜ áƒáƒ áƒáƒ¡áƒ¬áƒáƒ áƒ˜áƒ.")
             elif not password_ok(new_password):
-                st.error("ახალი პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს.")
+                st.error("áƒáƒ®áƒáƒšáƒ˜ áƒžáƒáƒ áƒáƒšáƒ˜ áƒ£áƒœáƒ“áƒ áƒ¨áƒ”áƒ˜áƒªáƒáƒ•áƒ“áƒ”áƒ¡ áƒ›áƒ˜áƒœáƒ˜áƒ›áƒ£áƒ› 8 áƒ¡áƒ˜áƒ›áƒ‘áƒáƒšáƒáƒ¡.")
             elif new_password != new_password2:
-                st.error("ახალი პაროლები ერთმანეთს არ ემთხვევა.")
+                st.error("áƒáƒ®áƒáƒšáƒ˜ áƒžáƒáƒ áƒáƒšáƒ”áƒ‘áƒ˜ áƒ”áƒ áƒ—áƒ›áƒáƒœáƒ”áƒ—áƒ¡ áƒáƒ  áƒ”áƒ›áƒ—áƒ®áƒ•áƒ”áƒ•áƒ.")
             else:
                 new_hash = bcrypt.hashpw(
                     new_password.encode("utf-8"),
@@ -1230,13 +1113,52 @@ def profile_page(user):
 
                 add_notification(
                     user["id"],
-                    "პაროლი შეიცვალა",
-                    "ანგარიშის პაროლი წარმატებით შეიცვალა.",
+                    "áƒžáƒáƒ áƒáƒšáƒ˜ áƒ¨áƒ”áƒ˜áƒªáƒ•áƒáƒšáƒ",
+                    "áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜áƒ¡ áƒžáƒáƒ áƒáƒšáƒ˜ áƒ¬áƒáƒ áƒ›áƒáƒ¢áƒ”áƒ‘áƒ˜áƒ— áƒ¨áƒ”áƒ˜áƒªáƒ•áƒáƒšáƒ.",
                     "security",
                 )
 
-                st.success("პაროლი წარმატებით შეიცვალა.")
+                st.success("áƒžáƒáƒ áƒáƒšáƒ˜ áƒ¬áƒáƒ áƒ›áƒáƒ¢áƒ”áƒ‘áƒ˜áƒ— áƒ¨áƒ”áƒ˜áƒªáƒ•áƒáƒšáƒ.")
                 st.rerun()
+
+
+    st.markdown("---")
+    st.subheader("ðŸ—‘ï¸ áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ”áƒ‘áƒ˜áƒ¡ áƒ›áƒáƒ áƒ—áƒ•áƒ")
+    st.markdown(
+        '<div class="small-muted">áƒ”áƒ¡ áƒ›áƒáƒ¥áƒ›áƒ”áƒ“áƒ”áƒ‘áƒ áƒ¬áƒáƒ¨áƒšáƒ˜áƒ¡ áƒáƒ› áƒáƒœáƒ’áƒáƒ áƒ˜áƒ¨áƒ˜áƒ¡ áƒ§áƒ•áƒ”áƒšáƒ áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒáƒ¡. áƒ¬áƒáƒ¨áƒšáƒ˜áƒšáƒ˜ áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ”áƒ‘áƒ˜áƒ¡ áƒ“áƒáƒ‘áƒ áƒ£áƒœáƒ”áƒ‘áƒ áƒ¨áƒ”áƒ£áƒ«áƒšáƒ”áƒ‘áƒ”áƒšáƒ˜áƒ.</div>',
+        unsafe_allow_html=True,
+    )
+
+    clear_confirm = st.checkbox(
+        "áƒ•áƒáƒ“áƒáƒ¡áƒ¢áƒ£áƒ áƒ”áƒ‘, áƒ áƒáƒ› áƒœáƒáƒ›áƒ“áƒ•áƒ˜áƒšáƒáƒ“ áƒ›áƒ˜áƒœáƒ“áƒ áƒ§áƒ•áƒ”áƒšáƒ áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ˜áƒ¡ áƒ¬áƒáƒ¨áƒšáƒ.",
+        key="clear_orders_confirm",
+    )
+    clear_orders = st.button(
+        "ðŸ—‘ï¸ áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ”áƒ‘áƒ˜áƒ¡ áƒ’áƒáƒ¡áƒ£áƒ¤áƒ—áƒáƒ•áƒ”áƒ‘áƒ",
+        type="secondary",
+        use_container_width=True,
+        disabled=not clear_confirm,
+        key="clear_all_orders",
+    )
+
+    if clear_orders:
+        conn = db()
+        count = conn.execute(
+            "SELECT COUNT(*) AS c FROM orders WHERE user_id = ?",
+            (user["id"],),
+        ).fetchone()["c"]
+        conn.execute("DELETE FROM orders WHERE user_id = ?", (user["id"],))
+        conn.commit()
+        conn.close()
+
+        add_notification(
+            user["id"],
+            "áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ”áƒ‘áƒ˜ áƒ’áƒáƒ¡áƒ£áƒ¤áƒ—áƒáƒ•áƒ“áƒ",
+            f"áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ”áƒ‘áƒ˜áƒ¡ áƒ˜áƒ¡áƒ¢áƒáƒ áƒ˜áƒ áƒ’áƒáƒ˜áƒ¬áƒ›áƒ˜áƒœáƒ“áƒ. áƒ¬áƒáƒ˜áƒ¨áƒáƒšáƒ {count} áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ.",
+            "info",
+        )
+        st.success(f"áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ”áƒ‘áƒ˜ áƒ’áƒáƒ¡áƒ£áƒ¤áƒ—áƒáƒ•áƒ“áƒ â€” áƒ¬áƒáƒ˜áƒ¨áƒáƒšáƒ {count} áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ.")
+        st.rerun()
 
 
 # -----------------------------
@@ -1246,7 +1168,7 @@ def app_shell(user):
     create_due_reminders(user["id"])
 
     if "page" not in st.session_state:
-        st.session_state.page = "მთავარი"
+        st.session_state.page = "áƒ›áƒ—áƒáƒ•áƒáƒ áƒ˜"
 
     with st.sidebar:
         st.markdown(
@@ -1260,12 +1182,16 @@ def app_shell(user):
         st.caption(user["business_name"])
         st.caption(user["business_type"])
 
+        conn = db()
+        unread = conn.execute("SELECT COUNT(*) AS c FROM notifications WHERE user_id=? AND is_read=0", (user["id"],)).fetchone()["c"]
+        conn.close()
+
         pages = {
-            "მთავარი": "🏠 მთავარი",
-            "შეკვეთის გაფორმება": "＋ შეკვეთის გაფორმება",
-            "შეკვეთები": "📦 შეკვეთები",
-            "შეტყობინებები": "🔔 შეტყობინებები",
-            "პროფილი": "⚙️ პროფილი",
+            "áƒ›áƒ—áƒáƒ•áƒáƒ áƒ˜": "âŒ‚  áƒ›áƒ—áƒáƒ•áƒáƒ áƒ˜",
+            "áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ˜áƒ¡ áƒ’áƒáƒ¤áƒáƒ áƒ›áƒ”áƒ‘áƒ": "ï¼‹  áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ˜áƒ¡ áƒ’áƒáƒ¤áƒáƒ áƒ›áƒ”áƒ‘áƒ",
+            "áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ”áƒ‘áƒ˜": "â–£  áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ”áƒ‘áƒ˜",
+            "áƒ¨áƒ”áƒ¢áƒ§áƒáƒ‘áƒ˜áƒœáƒ”áƒ‘áƒ”áƒ‘áƒ˜": f"â™§  áƒ¨áƒ”áƒ¢áƒ§áƒáƒ‘áƒ˜áƒœáƒ”áƒ‘áƒ”áƒ‘áƒ˜  {unread if unread else ''}",
+            "áƒžáƒ áƒáƒ¤áƒ˜áƒšáƒ˜": "â™™  áƒžáƒ áƒáƒ¤áƒ˜áƒšáƒ˜",
         }
 
         for key, label in pages.items():
@@ -1278,21 +1204,22 @@ def app_shell(user):
                 st.rerun()
 
         st.markdown("---")
+        st.markdown('''<div class="sf-card" style="padding:15px;background:linear-gradient(145deg,#15102c,#101426)"><b style="color:#fff">â™› Premium áƒ’áƒ”áƒ’áƒ›áƒ</b><div class="small-muted" style="margin:5px 0 10px">áƒ›áƒ”áƒ¢áƒ˜ áƒ¨áƒ”áƒ¡áƒáƒ«áƒšáƒ”áƒ‘áƒšáƒáƒ‘áƒ”áƒ‘áƒ˜áƒ¡áƒ—áƒ•áƒ˜áƒ¡</div></div>''', unsafe_allow_html=True)
 
-        if st.button("🚪 გამოსვლა", use_container_width=True):
+        if st.button("ðŸšª áƒ’áƒáƒ›áƒáƒ¡áƒ•áƒšáƒ", use_container_width=True):
             logout()
 
     page = st.session_state.page
 
-    if page == "მთავარი":
+    if page == "áƒ›áƒ—áƒáƒ•áƒáƒ áƒ˜":
         dashboard(user)
-    elif page == "შეკვეთის გაფორმება":
+    elif page == "áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ˜áƒ¡ áƒ’áƒáƒ¤áƒáƒ áƒ›áƒ”áƒ‘áƒ":
         new_order_page(user)
-    elif page == "შეკვეთები":
+    elif page == "áƒ¨áƒ”áƒ™áƒ•áƒ”áƒ—áƒ”áƒ‘áƒ˜":
         orders_page(user)
-    elif page == "შეტყობინებები":
+    elif page == "áƒ¨áƒ”áƒ¢áƒ§áƒáƒ‘áƒ˜áƒœáƒ”áƒ‘áƒ”áƒ‘áƒ˜":
         notifications_page(user)
-    elif page == "პროფილი":
+    elif page == "áƒžáƒ áƒáƒ¤áƒ˜áƒšáƒ˜":
         profile_page(user)
 
 
@@ -1304,7 +1231,7 @@ def main():
         cookie_user = get_user_from_cookie()
         if cookie_user:
             st.session_state.user_id = cookie_user["id"]
-            st.session_state.page = "მთავარი"
+            st.session_state.page = "áƒ›áƒ—áƒáƒ•áƒáƒ áƒ˜"
 
     if "user_id" not in st.session_state:
         if "auth_mode" not in st.session_state:
